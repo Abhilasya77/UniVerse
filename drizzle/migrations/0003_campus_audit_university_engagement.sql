@@ -1,0 +1,8 @@
+create table public.campus_staff_universities (user_id uuid primary key, university text not null check(btrim(university)<>''));
+grant all on public.campus_staff_universities to service_role;
+alter table public.campus_staff_universities enable row level security;
+create table public.campus_engagement_audit (id bigint generated always as identity primary key, actor uuid not null, report text not null, accessed_at timestamptz not null default now());
+grant all on public.campus_engagement_audit to service_role;
+alter table public.campus_engagement_audit enable row level security;
+create or replace function public.campus_critical_rsvps() returns table(id uuid,title text,starts_at timestamptz,rsvps bigint) language plpgsql volatile security definer set search_path='' as $$ declare campus text; begin if not public.campus_role('admin') then raise exception 'Not authorized'; end if; select lower(btrim(s.university)) into campus from public.campus_staff_universities s where s.user_id=auth.uid(); if campus is null then raise exception 'No verified university assignment'; end if; insert into public.campus_engagement_audit(actor,report) values(auth.uid(),'critical_rsvps'); return query select e.id,e.title,e.starts_at,count(a.user_id) from public.events e left join public.event_activity a on a.event_id=e.id and a.kind='registered' where lower(e.host_university)=campus and e.critical and e.starts_at>=now() group by e.id having count(a.user_id)<5 order by e.starts_at limit 20; end $$;
+revoke all on function public.campus_critical_rsvps() from public; grant execute on function public.campus_critical_rsvps() to authenticated;

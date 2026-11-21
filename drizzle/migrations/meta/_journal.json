@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1795155472628,
+      "tag": "0000_campus_workspace",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795155987015,
+      "tag": "0001_campus_notifications_and_media_rules",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795156519811,
+      "tag": "0002_campus_student_planner_and_event_visibility",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795156810266,
+      "tag": "0003_campus_audit_university_engagement",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1795159449981,
+      "tag": "0004_bind_campus_media_to_attachment_owners",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1795159561975,
+      "tag": "0005_restrict_direct_campus_media_reads_to_uploaders",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1795247765353,
+      "tag": "0006_scope_announcement_and_item_reads",
+      "breakpoints": true
+    }
+  ]
+}
